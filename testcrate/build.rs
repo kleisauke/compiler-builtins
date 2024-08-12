@@ -9,12 +9,12 @@ enum Feature {
     NoSysF16F128Convert,
 }
 
-mod builtins_configure {
-    include!("../configure.rs");
+mod builtins_build {
+    include!("../build.rs");
 }
 
 fn main() {
-    let target = builtins_configure::Target::from_env();
+    let target = builtins_build::Target::from_env();
     let mut features = HashSet::new();
 
     // These platforms do not have f128 symbols available in their system libraries, so
@@ -84,5 +84,5 @@ fn main() {
         println!("cargo:rustc-cfg=feature=\"{name}\"");
     }
 
-    builtins_configure::configure_f16_f128(&target);
+    builtins_build::configure_f16_f128(&target);
 }
